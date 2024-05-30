@@ -12,7 +12,7 @@ class Character {
   });
 }
 
-final List<Character> characters = [
+List<Character> characters = [
   Character(
     name: 'Рик Санчез',
     status: 'ЖИВОЙ',
