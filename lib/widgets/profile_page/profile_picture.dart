@@ -27,7 +27,7 @@ class ProfilePicture extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 120,
+            top: 90,
             child: CircleAvatar(
               radius: profileHeight / 2,
               backgroundColor: AppColors.bgColor,

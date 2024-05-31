@@ -14,7 +14,7 @@ class ProfileName extends StatelessWidget {
           child: Text(
             'Рик Санчез',
             style: TextStyle(
-                fontSize: 34,
+                fontSize: 30,
                 fontWeight: FontWeight.w400,
                 color: AppColors.nameColor),
           ),

@@ -3,7 +3,7 @@ import 'package:neobis_flutter_rick_and_morty/styles/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
 import 'package:neobis_flutter_rick_and_morty/widgets/profile_page/epizodes_info.dart';
 import 'package:neobis_flutter_rick_and_morty/widgets/profile_page/profile_gender.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/profile_page/profile_image.dart';
+import 'package:neobis_flutter_rick_and_morty/widgets/profile_page/profile_picture.dart';
 import 'package:neobis_flutter_rick_and_morty/widgets/profile_page/profile_info.dart';
 import 'package:neobis_flutter_rick_and_morty/widgets/profile_page/profile_name.dart';
 
@@ -15,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final double coverHeight = 190;
+  final double coverHeight = 160;
   final double profileHeight = 146;
 
   @override
