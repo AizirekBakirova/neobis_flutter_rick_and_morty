@@ -13,27 +13,31 @@ class TextFormFieldButton extends StatefulWidget {
 }
 
 class _TextFormFieldButtonState extends State<TextFormFieldButton> {
-  List<Character> display_list = [];
-
-  void updateList(String value) {
-    setState(() {
-      display_list = characters
-          .where((element) =>
-              element.name.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    });
-  }
+  List<Character> _filteredCharacters = [];
+  TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
-    display_list = characters;
     super.initState();
+    _filteredCharacters = characters;
+  }
+
+  void _filterCharacters(String query) {
+    final filtered = characters.where((character) {
+      final nameLower = character.name.toLowerCase();
+      final queryLower = query.toLowerCase();
+      return nameLower.contains(queryLower);
+    }).toList();
+    setState(() {
+      _filteredCharacters = filtered;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: updateList,
+      controller: _controller,
+      onChanged: _filterCharacters,
       style: AppTextStyles.whiteTextProfPage,
       cursorHeight: 44,
       cursorWidth: 328,

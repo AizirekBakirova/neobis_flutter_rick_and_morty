@@ -42,13 +42,6 @@ class SearchEmptyPage extends StatelessWidget {
                   left: 15, top: 12, right: 15, bottom: 12),
               child: Image.asset('assets/icons/Line 3 (1).png'),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, top: 12),
-              child: Text(
-                'РЕЗУЛЬТАТЫ ПОИСКА',
-                style: AppTextStyles.greyTextProfPage,
-              ),
-            ),
             const SizedBox(
               height: 100,
             ),
