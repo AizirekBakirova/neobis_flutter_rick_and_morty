@@ -29,42 +29,42 @@ List<Character> characters = [
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/1.png',
-    backgroundImage: 'assets/images/rickblur.png',
+    backgroundImage: 'assets/images/Rectangle 1.png',
   ),
   Character(
     name: 'Директор Агентства',
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/2.png',
-    backgroundImage: 'assets/images/directorblur.png',
+    backgroundImage: 'assets/images/2.png',
   ),
   Character(
     name: 'Морти Смит',
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/3.png',
-    backgroundImage: 'assets/images/mortiblur.png',
+    backgroundImage: 'assets/images/3.png',
   ),
   Character(
     name: 'Саммер Смит',
     status: 'ЖИВОЙ',
     gender: 'Человек, Женский',
     images: 'assets/images/4.png',
-    backgroundImage: 'assets/images/sammerblur.png',
+    backgroundImage: 'assets/images/4.png',
   ),
   Character(
     name: 'Альберт Эйнштейн',
     status: 'МЕРТВЫЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/5.png',
-    backgroundImage: 'assets/images/albertblur.png',
+    backgroundImage: 'assets/images/5.png',
   ),
   Character(
     name: 'Алан Райлз',
     status: 'МЕРТВЫЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/6.png',
-    backgroundImage: 'assets/images/alanblur.png',
+    backgroundImage: 'assets/images/6.png',
   ),
 ];
 
@@ -240,6 +240,7 @@ class _CharactersPageState extends State<CharactersPage> {
                             image: character.images,
                             gender: character.gender,
                             backgroundImage: character.backgroundImage,
+                            description: character.status,
                           )));
             },
             child: Padding(
@@ -322,6 +323,7 @@ class _CharactersPageState extends State<CharactersPage> {
                             name: character.name,
                             gender: character.gender,
                             backgroundImage: character.backgroundImage,
+                            description: character.status,
                           )));
             },
             child: Padding(

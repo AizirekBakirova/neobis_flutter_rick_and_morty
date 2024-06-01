@@ -10,23 +10,23 @@ class ProfileGender extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 15, left: 15),
+      padding: const EdgeInsets.only(right: 15, left: 15),
       child: Row(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Пол', style: AppTextStyles.greyTextProfPage),
+              const Text('Пол', style: AppTextStyles.greyTextProfPage),
               Text(
                 gender,
                 style: AppTextStyles.whiteTextProfPage,
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 150,
           ),
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
