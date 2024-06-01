@@ -4,11 +4,12 @@ import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
 class ProfileGender extends StatelessWidget {
   const ProfileGender({
     super.key,
+    required this.gender,
   });
-
+  final String gender;
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.only(right: 15, left: 15),
       child: Row(
         children: [
@@ -17,7 +18,7 @@ class ProfileGender extends StatelessWidget {
             children: [
               Text('Пол', style: AppTextStyles.greyTextProfPage),
               Text(
-                'Мужской',
+                gender,
                 style: AppTextStyles.whiteTextProfPage,
               )
             ],

@@ -10,12 +10,17 @@ class SortWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 15, top: 20),
-          child: Text(
-            'СОРТИРОВАТЬ',
-            style: AppTextStyles.greyTextProfPage,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 15, top: 20),
+              child: Text(
+                'СОРТИРОВАТЬ',
+                style: AppTextStyles.greyTextProfPage,
+              ),
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 15, top: 12),

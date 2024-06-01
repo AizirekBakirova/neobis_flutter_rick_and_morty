@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/features/data/models.dart';
+import 'package:neobis_flutter_rick_and_morty/features/presentation/pages/filter_page.dart';
 import 'package:neobis_flutter_rick_and_morty/features/presentation/pages/profile_page.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
@@ -11,12 +12,14 @@ class Character {
   final String status;
   final String gender;
   final String images;
+  final String backgroundImage;
 
   Character({
     required this.name,
     required this.status,
     required this.gender,
     required this.images,
+    required this.backgroundImage,
   });
 }
 
@@ -26,36 +29,42 @@ List<Character> characters = [
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/1.png',
+    backgroundImage: 'assets/images/rickblur.png',
   ),
   Character(
     name: 'Директор Агентства',
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/2.png',
+    backgroundImage: 'assets/images/directorblur.png',
   ),
   Character(
     name: 'Морти Смит',
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/3.png',
+    backgroundImage: 'assets/images/mortiblur.png',
   ),
   Character(
     name: 'Саммер Смит',
     status: 'ЖИВОЙ',
     gender: 'Человек, Женский',
     images: 'assets/images/4.png',
+    backgroundImage: 'assets/images/sammerblur.png',
   ),
   Character(
     name: 'Альберт Эйнштейн',
     status: 'МЕРТВЫЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/5.png',
+    backgroundImage: 'assets/images/albertblur.png',
   ),
   Character(
     name: 'Алан Райлз',
     status: 'МЕРТВЫЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/6.png',
+    backgroundImage: 'assets/images/alanblur.png',
   ),
 ];
 
@@ -146,7 +155,16 @@ class _CharactersPageState extends State<CharactersPage> {
                     padding: EdgeInsets.all(10),
                     constraints:
                         BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
-                    child: Image.asset('assets/icons/filter.png'),
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FilterPage()));
+                          });
+                        },
+                        child: Image.asset('assets/icons/filter.png')),
                   ),
                 ),
               ),
@@ -214,8 +232,15 @@ class _CharactersPageState extends State<CharactersPage> {
         final character = _filteredCharacters[index];
         return InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(
+                            name: character.name,
+                            image: character.images,
+                            gender: character.gender,
+                            backgroundImage: character.backgroundImage,
+                          )));
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -289,8 +314,15 @@ class _CharactersPageState extends State<CharactersPage> {
         final character = _filteredCharacters[index];
         return InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(
+                            image: character.images,
+                            name: character.name,
+                            gender: character.gender,
+                            backgroundImage: character.backgroundImage,
+                          )));
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),

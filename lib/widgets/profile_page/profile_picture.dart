@@ -6,10 +6,12 @@ class ProfilePicture extends StatelessWidget {
     super.key,
     required this.coverHeight,
     required this.profileHeight,
+    required this.image,
   });
 
   final double coverHeight;
   final double profileHeight;
+  final String image;
 
   @override
   Widget build(BuildContext context) {

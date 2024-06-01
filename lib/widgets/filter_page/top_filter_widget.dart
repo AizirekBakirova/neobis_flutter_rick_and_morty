@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neobis_flutter_rick_and_morty/features/presentation/pages/characters_page.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
 
 class TopFilterWidget extends StatelessWidget {
@@ -18,13 +19,20 @@ class TopFilterWidget extends StatelessWidget {
               icon: SizedBox(
                   width: 24,
                   height: 24,
-                  child: Image.asset('assets/icons/arrowback.png'))),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CharactersPage()));
+                      },
+                      child: Image.asset('assets/icons/arrowback.png')))),
           const Text(
             'Фильтры',
             style: AppTextStyles.epizodeTextProfPage,
           ),
           const SizedBox(
-            width: 200,
+            width: 180,
           ),
           IconButton(
               onPressed: () {},

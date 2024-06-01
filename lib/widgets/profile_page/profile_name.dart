@@ -4,15 +4,18 @@ import 'package:neobis_flutter_rick_and_morty/styles/app_colors.dart';
 class ProfileName extends StatelessWidget {
   const ProfileName({
     super.key,
+    required this.name,
   });
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         Center(
           child: Text(
-            'Рик Санчез',
+            name,
             style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w400,
