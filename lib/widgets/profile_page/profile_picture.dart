@@ -7,35 +7,39 @@ class ProfilePicture extends StatelessWidget {
     required this.coverHeight,
     required this.profileHeight,
     required this.image,
+    required this.backgroundImage,
   });
 
   final double coverHeight;
   final double profileHeight;
   final String image;
+  final String backgroundImage;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 80),
-            child: Image.asset(
-              'assets/images/rick.png',
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: coverHeight,
-            ),
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
+          color: AppColors.bgColor,
+          margin: const EdgeInsets.only(bottom: 80),
+          child: Image.asset(
+            backgroundImage,
+            fit: BoxFit.cover,
+            width: 500,
+            height: coverHeight,
           ),
-          Positioned(
-            top: 90,
-            child: CircleAvatar(
-              radius: profileHeight / 2,
-              backgroundColor: AppColors.bgColor,
-              backgroundImage: const AssetImage('assets/images/1.png'),
-            ),
-          )
-        ]);
+        ),
+        Positioned(
+          top: 90,
+          child: CircleAvatar(
+            radius: profileHeight / 2,
+            backgroundColor: AppColors.bgColor,
+            backgroundImage: AssetImage(image),
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -5,9 +5,11 @@ class ProfileName extends StatelessWidget {
   const ProfileName({
     super.key,
     required this.name,
+    required this.description,
   });
 
   final String name;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ProfileName extends StatelessWidget {
         Center(
           child: Text(
             name,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w400,
                 color: AppColors.nameColor),
@@ -24,8 +26,8 @@ class ProfileName extends StatelessWidget {
         ),
         Center(
           child: Text(
-            'ЖИВОЙ',
-            style: TextStyle(
+            description,
+            style: const TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
                 color: AppColors.statusColor),
