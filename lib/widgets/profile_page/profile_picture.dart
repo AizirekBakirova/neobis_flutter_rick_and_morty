@@ -27,7 +27,7 @@ class ProfilePicture extends StatelessWidget {
           child: Image.asset(
             backgroundImage,
             fit: BoxFit.cover,
-            width: 500,
+            width: double.infinity,
             height: coverHeight,
           ),
         ),
@@ -37,6 +37,19 @@ class ProfilePicture extends StatelessWidget {
             radius: profileHeight / 2,
             backgroundColor: AppColors.bgColor,
             backgroundImage: AssetImage(image),
+          ),
+        ),
+        Positioned(
+          left: 10,
+          bottom: 200,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
           ),
         ),
       ],
