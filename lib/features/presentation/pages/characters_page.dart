@@ -29,7 +29,7 @@ List<Character> characters = [
     status: 'ЖИВОЙ',
     gender: 'Человек, Мужской',
     images: 'assets/images/1.png',
-    backgroundImage: 'assets/images/Rectangle 1.png',
+    backgroundImage: 'assets/images/1.png',
   ),
   Character(
     name: 'Директор Агентства',
@@ -69,21 +69,17 @@ List<Character> characters = [
 ];
 
 class CharactersPage extends StatefulWidget {
+  const CharactersPage({super.key});
+
   @override
   _CharactersPageState createState() => _CharactersPageState();
 }
 
 class _CharactersPageState extends State<CharactersPage> {
   bool _isListView = true;
-  List<Character> _characters = characters;
+  final List<Character> _characters = characters;
   List<Character> _filteredCharacters = characters;
-  TextEditingController _controller = TextEditingController();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _filteredCharacters = _characters;
-  // }
+  final TextEditingController _controller = TextEditingController();
 
   void _filterCharacters(String query) {
     final filtered = _characters.where((character) {
@@ -114,9 +110,9 @@ class _CharactersPageState extends State<CharactersPage> {
                   prefixIcon: GestureDetector(
                     onTap: () {},
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       constraints:
-                          BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
+                          const BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
                       child: Image.asset('assets/icons/search.png'),
                     ),
                   ),
@@ -152,16 +148,16 @@ class _CharactersPageState extends State<CharactersPage> {
                       //   ),
                       // )
                       Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     constraints:
-                        BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
+                        const BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
                     child: InkWell(
                         onTap: () {
                           setState(() {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => FilterPage()));
+                                    builder: (context) => const FilterPage()));
                           });
                         },
                         child: Image.asset('assets/icons/filter.png')),
@@ -201,7 +197,7 @@ class _CharactersPageState extends State<CharactersPage> {
                                 width: 134,
                                 height: 224,
                                 child: Image.asset('assets/images/search.png')),
-                            SizedBox(height: 15),
+                            const SizedBox(height: 15),
                             const Center(
                               child: Text(
                                 'Персонаж с таким именем\n              не найден',

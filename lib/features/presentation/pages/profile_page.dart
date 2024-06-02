@@ -19,8 +19,8 @@ class ProfilePage extends StatelessWidget {
   final String name;
   final String gender;
   final String description;
-  final double coverHeight = 160;
 
+  final double coverHeight = 160;
   final double profileHeight = 146;
 
   @override
