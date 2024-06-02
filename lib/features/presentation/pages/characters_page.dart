@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:neobis_flutter_rick_and_morty/features/data/models.dart';
 import 'package:neobis_flutter_rick_and_morty/features/presentation/pages/filter_page.dart';
 import 'package:neobis_flutter_rick_and_morty/features/presentation/pages/profile_page.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
 import 'package:neobis_flutter_rick_and_morty/widgets/characters_page/amount_widgets.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/characters_page/text_form_field_button.dart';
 
 class Character {
   final String name;
@@ -72,7 +70,7 @@ class CharactersPage extends StatefulWidget {
   const CharactersPage({super.key});
 
   @override
-  _CharactersPageState createState() => _CharactersPageState();
+  State<CharactersPage> createState() => _CharactersPageState();
 }
 
 class _CharactersPageState extends State<CharactersPage> {
@@ -94,74 +92,59 @@ class _CharactersPageState extends State<CharactersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.bgColor,
-        body: Padding(
+    return Scaffold(
+      backgroundColor: AppColors.bgColor,
+      body: SafeArea(
+        child: Padding(
           padding:
               const EdgeInsets.only(right: 15, bottom: 12, left: 15, top: 12),
           child: Column(
             children: [
-              TextFormField(
-                controller: _controller,
-                onChanged: _filterCharacters,
-                style: AppTextStyles.whiteTextProfPage,
-                decoration: InputDecoration(
-                  prefixIcon: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      constraints:
-                          const BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
-                      child: Image.asset('assets/icons/search.png'),
+              Container(
+                height: 48,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColors.textFFColor,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 12,
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icons/search.png',
+                      width: 24,
+                      height: 24,
                     ),
-                  ),
-                  filled: true,
-                  fillColor: AppColors.textFFColor,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
-                  hintText: 'Найти персонажа',
-                  hintStyle: const TextStyle(
-                      color: AppColors.searchTextColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400),
-                  suffixIcon:
-                      // Container(
-                      //   constraints: BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.end,
-                      //     children: [
-                      //       SizedBox(
-                      //           width: 24,
-                      //           height: 24,
-                      //           child: Image.asset('assets/icons/line.png')),
-                      //       Container(
-                      //         child: IconButton(
-                      //             onPressed: () {},
-                      //             icon: Image.asset('assets/icons/filter.png')),
-                      //       )
-                      //     ],
-                      //   ),
-                      // )
-                      Container(
-                    padding: const EdgeInsets.all(10),
-                    constraints:
-                        const BoxConstraints(maxHeight: 24.0, minWidth: 24.0),
-                    child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FilterPage()));
-                          });
-                        },
-                        child: Image.asset('assets/icons/filter.png')),
-                  ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                          onChanged: _filterCharacters,
+                        style: AppTextStyles.whiteTextProfPage,
+                        decoration: const InputDecoration.collapsed(
+                          hintText: 'Найти персонажа',
+                          hintStyle: TextStyle(
+                            color: AppColors.searchTextColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      width: 1,
+                      color: Colors.white.withOpacity(0.1),
+                    ),
+                    const SizedBox(width: 10),
+                    Image.asset(
+                      'assets/icons/filter.png',
+                      width: 24,
+                      height: 24,
+                    ),
+                  ],
                 ),
               ),
               Row(

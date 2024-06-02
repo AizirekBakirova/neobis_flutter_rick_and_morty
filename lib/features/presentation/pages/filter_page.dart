@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/app_colors.dart';
 import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/filter_page/gender_widget.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/filter_page/sort_widget.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/filter_page/status_widget.dart';
 import 'package:neobis_flutter_rick_and_morty/widgets/filter_page/top_filter_widget.dart';
 
 class FilterPage extends StatefulWidget {
@@ -23,7 +20,9 @@ class _FilterPageState extends State<FilterPage> {
         backgroundColor: AppColors.bgColor,
         body: Column(
           children: [
-            TopFilterWidget(),
+            TopFilterWidget(
+              onBackTap: Navigator.of(context).pop,
+            ),
             // SortWidget(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +75,7 @@ class _FilterPageState extends State<FilterPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 15, top: 12, bottom: 12),
                   child: Text(
                     'СТАТУС',
@@ -139,7 +138,7 @@ class _FilterPageState extends State<FilterPage> {
                       left: 15, top: 12, right: 15, bottom: 12),
                   child: Image.asset('assets/icons/Line 3 (1).png'),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 15, bottom: 12, top: 12),
                   child: Text(
                     'ПОЛ',
