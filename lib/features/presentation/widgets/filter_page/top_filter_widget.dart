@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/features/presentation/pages/characters_page.dart';
-import 'package:neobis_flutter_rick_and_morty/styles/text_style.dart';
+import 'package:neobis_flutter_rick_and_morty/features/presentation/styles/text_style.dart';
 
 class TopFilterWidget extends StatelessWidget {
   const TopFilterWidget({

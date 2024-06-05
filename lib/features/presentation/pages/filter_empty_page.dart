@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:neobis_flutter_rick_and_morty/styles/app_colors.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/characters_page/amount_widgets.dart';
-import 'package:neobis_flutter_rick_and_morty/widgets/characters_page/text_form_field_button.dart';
+import 'package:neobis_flutter_rick_and_morty/features/presentation/styles/app_colors.dart';
+import 'package:neobis_flutter_rick_and_morty/features/presentation/widgets/characters_page/amount_widgets.dart';
+import 'package:neobis_flutter_rick_and_morty/features/presentation/widgets/characters_page/text_form_field_button.dart';
 
 class FilterEmptyPage extends StatelessWidget {
   const FilterEmptyPage({super.key});
