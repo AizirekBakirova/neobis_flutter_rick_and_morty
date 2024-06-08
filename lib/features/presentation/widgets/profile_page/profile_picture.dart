@@ -7,13 +7,11 @@ class ProfilePicture extends StatelessWidget {
     required this.coverHeight,
     required this.profileHeight,
     required this.image,
-    required this.backgroundImage,
   });
 
   final double coverHeight;
   final double profileHeight;
   final String image;
-  final String backgroundImage;
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +22,29 @@ class ProfilePicture extends StatelessWidget {
         Container(
           color: AppColors.bgColor,
           margin: const EdgeInsets.only(bottom: 80),
-          child: Image.asset(
-            backgroundImage,
+          child: Image.network(
+            image,
             fit: BoxFit.cover,
             width: double.infinity,
             height: coverHeight,
           ),
         ),
+        Container(
+          width: double.infinity,
+          height: 250,
+          decoration:
+              BoxDecoration(color: const Color(0xff0B1e2d).withOpacity(0.65)),
+        ),
         Positioned(
           top: 90,
           child: CircleAvatar(
-            radius: profileHeight / 2,
+            radius: 80,
             backgroundColor: AppColors.bgColor,
-            backgroundImage: AssetImage(image),
+            child: CircleAvatar(
+              radius: 73,
+              backgroundColor: AppColors.bgColor,
+              backgroundImage: NetworkImage(image),
+            ),
           ),
         ),
         Positioned(
@@ -46,7 +54,7 @@ class ProfilePicture extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(
+            child: const Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:neobis_flutter_rick_and_morty/features/data/fetch_data/fetch_all_characters.dart';
 import 'package:neobis_flutter_rick_and_morty/features/data/models/all_characters.dart';
@@ -9,102 +8,48 @@ import 'package:neobis_flutter_rick_and_morty/features/presentation/styles/app_c
 import 'package:neobis_flutter_rick_and_morty/features/presentation/styles/text_style.dart';
 import 'package:neobis_flutter_rick_and_morty/features/presentation/widgets/characters_page/amount_widgets.dart';
 
-class Character {
-  final String name;
-  final String status;
-  final String gender;
-  final String images;
-  final String backgroundImage;
-
-  Character({
-    required this.name,
-    required this.status,
-    required this.gender,
-    required this.images,
-    required this.backgroundImage,
-  });
-}
-
-List<Character> characters = [
-  Character(
-    name: 'Рик Санчез',
-    status: 'ЖИВОЙ',
-    gender: 'Человек, Мужской',
-    images: 'assets/images/1.png',
-    backgroundImage: 'assets/images/1.png',
-  ),
-  Character(
-    name: 'Директор Агентства',
-    status: 'ЖИВОЙ',
-    gender: 'Человек, Мужской',
-    images: 'assets/images/2.png',
-    backgroundImage: 'assets/images/2.png',
-  ),
-  Character(
-    name: 'Морти Смит',
-    status: 'ЖИВОЙ',
-    gender: 'Человек, Мужской',
-    images: 'assets/images/3.png',
-    backgroundImage: 'assets/images/3.png',
-  ),
-  Character(
-    name: 'Саммер Смит',
-    status: 'ЖИВОЙ',
-    gender: 'Человек, Женский',
-    images: 'assets/images/4.png',
-    backgroundImage: 'assets/images/4.png',
-  ),
-  Character(
-    name: 'Альберт Эйнштейн',
-    status: 'МЕРТВЫЙ',
-    gender: 'Человек, Мужской',
-    images: 'assets/images/5.png',
-    backgroundImage: 'assets/images/5.png',
-  ),
-  Character(
-    name: 'Алан Райлз',
-    status: 'МЕРТВЫЙ',
-    gender: 'Человек, Мужской',
-    images: 'assets/images/6.png',
-    backgroundImage: 'assets/images/6.png',
-  ),
-];
-
 class CharactersPage extends StatefulWidget {
-  const CharactersPage({super.key});
+  const CharactersPage({
+    super.key,
+  });
 
   @override
   State<CharactersPage> createState() => _CharactersPageState();
 }
 
 class _CharactersPageState extends State<CharactersPage> {
-  AllCharacters? allCharacters;
-  Future<void> fetchAllCharacters([String? domain]) async {
-    allCharacters = null;
-    setState(() {});
-    allCharacters = await FetchAllCharacters().fetchAllCharacters(domain);
-    setState(() {});
-  }
+  TextEditingController _controller = TextEditingController();
+  bool _isListView = true;
+  List<Character>? allCharacters;
+  List<Character>? filteredCharacters;
 
   @override
   void initState() {
     super.initState();
-    fetchAllCharacters();
+    _fetchAndSetCharacters();
   }
 
-  bool _isListView = true;
-  final List<Character> _characters = characters;
-  List<Character> _filteredCharacters = characters;
-  final TextEditingController _controller = TextEditingController();
+  Future<void> _fetchAndSetCharacters() async {
+    try {
+      final characters = await fetchAllCharacters();
+      setState(() {
+        allCharacters = characters;
+        filteredCharacters = characters;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void _filterCharacters(String query) {
-    final filtered = _characters.where((character) {
-      final nameLower = character.name.toLowerCase();
-      final queryLower = query.toLowerCase();
-      return nameLower.contains(queryLower);
-    }).toList();
+    if (allCharacters == null) return;
+
+    final queryLower = query.toLowerCase();
     setState(() {
-      _filteredCharacters = filtered;
+      filteredCharacters = allCharacters!.where((character) {
+        final nameLower = character.name.toLowerCase();
+        return nameLower.contains(queryLower);
+      }).toList();
     });
   }
 
@@ -157,10 +102,20 @@ class _CharactersPageState extends State<CharactersPage> {
                       color: Colors.white.withOpacity(0.1),
                     ),
                     const SizedBox(width: 10),
-                    Image.asset(
-                      'assets/icons/filter.png',
-                      width: 24,
-                      height: 24,
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FilterPage()));
+                        });
+                      },
+                      child: Image.asset(
+                        'assets/icons/filter.png',
+                        width: 24,
+                        height: 24,
+                      ),
                     ),
                   ],
                 ),
@@ -187,7 +142,7 @@ class _CharactersPageState extends State<CharactersPage> {
                 ],
               ),
               Expanded(
-                child: _filteredCharacters.isEmpty
+                child: filteredCharacters!.isEmpty
                     ? Center(
                         child: Column(
                           children: [
@@ -224,9 +179,9 @@ class _CharactersPageState extends State<CharactersPage> {
 
   Widget _buildListView() {
     return ListView.builder(
-      itemCount: allCharacters!.results.length,
+      itemCount: filteredCharacters!.length,
       itemBuilder: (context, index) {
-        final character = allCharacters!.results[index];
+        final character = filteredCharacters![index];
         return InkWell(
             onTap: () {
               Navigator.push(
@@ -234,10 +189,11 @@ class _CharactersPageState extends State<CharactersPage> {
                   MaterialPageRoute(
                       builder: (context) => ProfilePage(
                             name: character.name,
-                            image: character.images ?? 'Empty Image',
+                            image: character.image ?? 'Empty Image',
                             gender: character.gender,
-                            backgroundImage: character.backgroundImage,
+                            // backgroundImage: character.backgroundImage,
                             description: character.status,
+                            species: character.species,
                           )));
             },
             child: Padding(
@@ -257,18 +213,18 @@ class _CharactersPageState extends State<CharactersPage> {
                               borderRadius: BorderRadius.circular(100),
                               image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: AssetImage(character.images))),
+                                  image: NetworkImage(character.image))),
                         ),
                         const SizedBox(width: 20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              character.status,
+                              character.status.toUpperCase(),
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w500,
-                                color: character.status == 'ЖИВОЙ'
+                                color: character.status.toUpperCase() == 'ALIVE'
                                     ? Colors.green
                                     : Colors.red,
                               ),
@@ -282,12 +238,33 @@ class _CharactersPageState extends State<CharactersPage> {
                                   color: AppColors.nameColor),
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              character.gender,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.genderColor),
+                            Row(
+                              children: [
+                                Text(
+                                  character.species,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.genderColor),
+                                ),
+                                Text(
+                                  ',',
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.genderColor),
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  character.gender,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.genderColor),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -307,20 +284,21 @@ class _CharactersPageState extends State<CharactersPage> {
         crossAxisCount: 2,
         childAspectRatio: 0.7,
       ),
-      itemCount: _filteredCharacters.length,
+      itemCount: filteredCharacters!.length,
       itemBuilder: (context, index) {
-        final character = _filteredCharacters[index];
+        final character = filteredCharacters![index];
         return InkWell(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ProfilePage(
-                            image: character.images,
+                            image: character.image,
                             name: character.name,
                             gender: character.gender,
-                            backgroundImage: character.backgroundImage,
+                            // backgroundImage: character.backgroundImage,
                             description: character.status,
+                            species: character.species,
                           )));
             },
             child: Padding(
@@ -337,18 +315,18 @@ class _CharactersPageState extends State<CharactersPage> {
                           borderRadius: BorderRadius.circular(100),
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(character.images))),
+                              image: NetworkImage(character.image))),
                     ),
                     const SizedBox(height: 20),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          character.status,
+                          character.status.toUpperCase(),
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w500,
-                            color: character.status == 'ЖИВОЙ'
+                            color: character.status.toUpperCase() == 'ALIVE'
                                 ? Colors.green
                                 : Colors.red,
                           ),
@@ -362,12 +340,34 @@ class _CharactersPageState extends State<CharactersPage> {
                               color: AppColors.nameColor),
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          character.gender,
-                          style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.genderColor),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              character.species,
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.genderColor),
+                            ),
+                            Text(
+                              ',',
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.genderColor),
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Text(
+                              character.gender,
+                              style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.genderColor),
+                            ),
+                          ],
                         ),
                       ],
                     ),

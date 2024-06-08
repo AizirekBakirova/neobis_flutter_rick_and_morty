@@ -5,8 +5,10 @@ class ProfileGender extends StatelessWidget {
   const ProfileGender({
     super.key,
     required this.gender,
+    required this.species,
   });
   final String gender;
+  final String species;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +28,7 @@ class ProfileGender extends StatelessWidget {
           const SizedBox(
             width: 150,
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -34,7 +36,7 @@ class ProfileGender extends StatelessWidget {
                 style: AppTextStyles.greyTextProfPage,
               ),
               Text(
-                'Человек',
+                species,
                 style: AppTextStyles.whiteTextProfPage,
               )
             ],

@@ -12,15 +12,15 @@ class ProfilePage extends StatelessWidget {
       required this.image,
       required this.name,
       required this.gender,
-      required this.backgroundImage,
-      required this.description});
+      required this.description,
+      required this.species});
   final String image;
-  final String backgroundImage;
   final String name;
   final String gender;
   final String description;
+  final String species;
 
-  final double coverHeight = 160;
+  final double coverHeight = 170;
   final double profileHeight = 146;
 
   @override
@@ -34,7 +34,6 @@ class ProfilePage extends StatelessWidget {
             coverHeight: coverHeight,
             profileHeight: profileHeight,
             image: image,
-            backgroundImage: backgroundImage,
           ),
           ProfileName(
             name: name,
@@ -45,6 +44,7 @@ class ProfilePage extends StatelessWidget {
           ),
           ProfileGender(
             gender: gender,
+            species: species,
           ),
           const SizedBox(
             height: 10,
